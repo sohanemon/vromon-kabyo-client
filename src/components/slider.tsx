@@ -17,11 +17,17 @@ interface Props {
 const Slider: React.FC<Props> = ({ places, setSelected, selected }) => {
   return (
     <>
-      <Swiper slidesPerView={3} spaceBetween={20} className=''>
+      <Swiper
+        initialSlide={1}
+        slidesPerView={3}
+        spaceBetween={20}
+        centeredSlides={true}
+        className='w-[60vw]'
+      >
         {places.map((el: any, i: number) => (
           <SwiperSlide
             onClick={() => setSelected(el)}
-            className={`select-none rounded-2xl overflow-hidden shadow-2xl hover:ring-[3px] ${
+            className={`select-none rounded-2xl overflow-hidden shadow-2xl hover:ring-[3px] max-w-xs h-72 ${
               selected?.id === el?.id ? " ring" : ""
             } ring-yellow-300 m-2 cursor-pointer active:cursor-grabbing z-10`}
             key={i + 1}
