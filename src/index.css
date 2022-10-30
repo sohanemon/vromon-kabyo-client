@@ -1,3 +1,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+}
+
+/* React date picker customization */
+
+.react-date-picker__wrapper {
+  border: none !important;
+}
+.react-date-picker__inputGroup__input {
+  outline: none;
+  @apply selection:text-white selection:bg-yellow-500;
+}
+abbr:where([title]) {
+  text-decoration: none;
+}
+.react-date-picker__calendar .react-calendar {
+  @apply border-2 border-yellow-300 rounded-xl shadow-lg overflow-hidden;
+}
+
+.react-calendar__month-view__days__day--weekend {
+  @apply text-yellow-500;
+}
+
+.react-calendar__navigation button {
+  @apply text-yellow-500;
+}

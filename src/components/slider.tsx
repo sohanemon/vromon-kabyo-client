@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 // Import Swiper React components
 import {
   MdOutlineArrowBackIos,
@@ -7,42 +7,50 @@ import {
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
+import { PlaceType } from "../pages/home";
+import { usePlaceContext } from "../contexts/place-provider";
 
-interface Places {
-  thumbnail: string;
-}
-interface Props {
-  places: Places;
-}
-const Slider: React.FC<Props> = ({ places, setSelected, selected }) => {
+interface Props {}
+const Slider: React.FC<Props> = () => {
+  const { places, setSelected, selected } = usePlaceContext();
   return (
     <>
       <Swiper
         initialSlide={1}
-        slidesPerView={3}
-        spaceBetween={20}
+        spaceBetween={30}
         centeredSlides={true}
-        className='w-[60vw]'
+        className='w-full md:w-[60vw] m-0'
+        breakpoints={{
+          320: {
+            slidesPerView: 1,
+          },
+          // when window width is >= 480px
+          480: {
+            slidesPerView: 1,
+          },
+          // when window width is >= 640px
+          640: {
+            slidesPerView: 3,
+          },
+        }}
       >
-        {places.map((el: any, i: number) => (
+        {places?.map((el: any, i: number) => (
           <SwiperSlide
-            onClick={() => setSelected(el)}
-            className={`select-none rounded-2xl overflow-hidden shadow-2xl hover:ring-[3px] max-w-xs h-72 ${
+            onClick={() => setSelected?.(el)}
+            className={`select-none rounded-2xl overflow-hidden shadow-2xl hover:ring-[3px] max-w-[250px] md:w-full md:max-w-xs min-h-[20rem] ${
               selected?.id === el?.id ? " ring" : ""
             } ring-yellow-300 m-2 cursor-pointer active:cursor-grabbing z-10`}
             key={i + 1}
           >
-            <div>
-              <img
-                src={el.thumbnail}
-                className='object-cover w-full h-72'
-                alt=''
-              />
-            </div>
+            <img
+              src={el.thumbnail}
+              className='object-cover w-full h-80'
+              alt=''
+            />
           </SwiperSlide>
         ))}
         <div className='flex items-center gap-2'>
-          <SwiperChange />
+          <SwiperChange next={false} />
           <SwiperChange next />
         </div>
       </Swiper>
@@ -51,7 +59,7 @@ const Slider: React.FC<Props> = ({ places, setSelected, selected }) => {
 };
 export default Slider;
 
-const SwiperChange = ({ next }) => {
+const SwiperChange: FC<{ next: boolean }> = ({ next }) => {
   const swiper = useSwiper();
   return (
     <button

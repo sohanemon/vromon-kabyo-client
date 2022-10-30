@@ -7,7 +7,9 @@ const Navbar: React.FC<Props> = () => {
   return (
     <section className='flex absolute top-0 left-0 z-10 items-center justify-between w-full  mx-auto p-4'>
       <Link to='/'>
-        <h1 className='text-white font-semibold'>VromonKabyo</h1>
+        <h1 className='text-white font-semibold font-cursive text-2xl'>
+          VromonKabyo
+        </h1>
       </Link>
       <div className='lg:flex hidden items-center border px-4 py-2 text-white space-x-3 basis-80 border-gray-400 rounded-md '>
         <FaSearch />
@@ -24,7 +26,7 @@ const Navbar: React.FC<Props> = () => {
           </li>
         ))}
       </ul>
-      <Button>Login</Button>
+      <Button link='/login'>Login</Button>
     </section>
   );
 };

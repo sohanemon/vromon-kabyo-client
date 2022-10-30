@@ -12,7 +12,7 @@ const Main: React.FC<Props> = () => {
         autoPlay
         loop
         muted
-      />{" "}
+      />
       <div className='absolute top-0  h-full w-3/4 left-1/2 -translate-x-1/2'>
         <Navbar />
         <Outlet />
