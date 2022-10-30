@@ -1,7 +1,7 @@
 import {
   createUserWithEmailAndPassword,
+  FacebookAuthProvider,
   getAuth,
-  GithubAuthProvider,
   GoogleAuthProvider,
   onAuthStateChanged,
   signInWithEmailAndPassword,
@@ -23,7 +23,6 @@ const UserProvider: FC<{ children: any }> = ({ children }) => {
       if (user) {
         setUser(user);
         console.log("🚀 > onAuthStateChanged > user", user);
-        // ...
       } else {
         console.log("No previous user found...");
       }
@@ -39,8 +38,8 @@ const UserProvider: FC<{ children: any }> = ({ children }) => {
       console.log("🚀 > googleSignIn > error", error);
     });
   };
-  const githubSignIn = () => {
-    const provider = new GithubAuthProvider();
+  const facebookSignIn = () => {
+    const provider = new FacebookAuthProvider();
     return signInWithPopup(auth, provider).catch((error) => {
       console.log("🚀 > googleSignIn > error", error);
     });
@@ -70,7 +69,7 @@ const UserProvider: FC<{ children: any }> = ({ children }) => {
         user,
         logOut,
         googleSignIn,
-        githubSignIn,
+        facebookSignIn,
         emailSignUp,
         emailSignIn,
       }}

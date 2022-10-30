@@ -4,27 +4,37 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/button";
 import { useState } from "react";
 import { useUser } from "../contexts/user-provider";
+import { useForm } from "react-hook-form";
 interface Props {}
 
 const Login: React.FC<Props> = () => {
   const [socialLogin, setSocialLogin] = useState(false);
-  const { googleSignIn } = useUser();
+  const { googleSignIn, facebookSignIn, emailSignIn } = useUser();
   const navigate = useNavigate();
+  const { register, handleSubmit } = useForm();
+  const onSubmit: (data: any) => any = (data) => {
+    emailSignIn(data);
+  };
 
   return (
     // <AnimatePresence>
     <section className='grid place-content-center h-full'>
       <div className='bg-white p-10 border border-gray-300 rounded-lg shadow-xl tracking-widest select-none'>
-        <form className='flex flex-col gap-8 w-80'>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className='flex flex-col gap-8 w-80'
+        >
           <h1 className='text-2xl font-bold'>Login</h1>
           {!socialLogin && (
             <div className='flex flex-col gap-8 '>
               <input
+                {...register("email")}
                 className='outline-none border-b border-gray-400 placeholder:text-black'
                 type='email'
                 placeholder='Username or email'
               />
               <input
+                {...register("password")}
                 className='outline-none border-b border-gray-400 placeholder:text-black'
                 type='password'
                 placeholder='Password'
@@ -54,7 +64,7 @@ const Login: React.FC<Props> = () => {
           <div className=' border-gray-400 w-full border-t' />
           <p
             onClick={() => setSocialLogin((p) => !p)}
-            className='absolute text-sm left-1/2 text-center -translate-x-1/2 -top-[10px] bg-white px-2 text-gray-900 cursor-pointer'
+            className='absolute text-sm left-1/2 text-center -translate-x-1/2 -top-[10px] hover:text-yellow-600 bg-white px-2 text-gray-900 cursor-pointer'
           >
             {socialLogin ? "Login with email" : "Login with social account"}
           </p>
@@ -71,7 +81,11 @@ const Login: React.FC<Props> = () => {
                 Continue with Google
               </p>
             </button>
-            <button>
+            <button
+              onClick={() => {
+                facebookSignIn().then(() => {});
+              }}
+            >
               <FaFacebook className='text-xl text-blue-500' />
               <p className='text-center flex-auto font-semibold text-sm'>
                 {" "}

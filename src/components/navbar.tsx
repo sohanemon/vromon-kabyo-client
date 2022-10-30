@@ -32,7 +32,6 @@ const Navbar: React.FC<Props> = () => {
         <Button link='/login'>Login</Button>
       ) : (
         <>
-          {" "}
           <img src={user?.photoURL} className='w-10 h-10 rounded-full' alt='' />
           <span onClick={logOut}>
             <Button>Sign Out</Button>
