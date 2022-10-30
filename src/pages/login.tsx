@@ -1,6 +1,6 @@
 import { BsGoogle } from "react-icons/bs";
 import { FaFacebook } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/button";
 import { useState } from "react";
 import { useUser } from "../contexts/user-provider";
@@ -8,7 +8,9 @@ interface Props {}
 
 const Login: React.FC<Props> = () => {
   const [socialLogin, setSocialLogin] = useState(false);
-  // const { googleSignIn } = useUser();
+  const { googleSignIn } = useUser();
+  const navigate = useNavigate();
+
   return (
     // <AnimatePresence>
     <section className='grid place-content-center h-full'>
@@ -59,7 +61,11 @@ const Login: React.FC<Props> = () => {
         </div>
         {socialLogin && (
           <div className='flex flex-col [&>button]:w-full [&>button]:border [&>button]:rounded-full [&>button]:my-2 [&>button]:flex [&>button]:items-center   [&>button]:justify-between  [&>button]:p-2 tracking-wider'>
-            <button>
+            <button
+              onClick={() => {
+                googleSignIn().then(() => {});
+              }}
+            >
               <BsGoogle className='text-xl text-yellow-500' />
               <p className='text-center flex-auto font-semibold text-sm'>
                 Continue with Google

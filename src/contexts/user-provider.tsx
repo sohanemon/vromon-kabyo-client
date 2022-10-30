@@ -22,6 +22,7 @@ const UserProvider: FC<{ children: any }> = ({ children }) => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
+        console.log("🚀 > onAuthStateChanged > user", user);
         // ...
       } else {
         console.log("No previous user found...");

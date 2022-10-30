@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import Button from "./button";
+import { useUser } from "../contexts/user-provider";
 interface Props {}
 
 const Navbar: React.FC<Props> = () => {
+  const { user, logOut } = useUser();
   return (
     <section className='flex absolute top-0 left-0 z-10 items-center justify-between w-full  mx-auto p-4'>
       <Link to='/'>
@@ -26,7 +28,17 @@ const Navbar: React.FC<Props> = () => {
           </li>
         ))}
       </ul>
-      <Button link='/login'>Login</Button>
+      {!user?.uid ? (
+        <Button link='/login'>Login</Button>
+      ) : (
+        <>
+          {" "}
+          <img src={user?.photoURL} className='w-10 h-10 rounded-full' alt='' />
+          <span onClick={logOut}>
+            <Button>Sign Out</Button>
+          </span>
+        </>
+      )}
     </section>
   );
 };
