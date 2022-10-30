@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 const usePlaces = () => {
   const [places, setPlaces] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:3000/places`)
+    fetch(`https://api-vromonkabyo.vercel.app/places`)
       .then((res) => res.json())
       .then((data) => setPlaces(data));
 
