@@ -8,7 +8,6 @@ interface Props {}
 const Register: React.FC<Props> = () => {
   const { emailSignUp } = useUser();
   const { register, handleSubmit } = useForm();
-  const navigate = useNavigate();
   const onSubmit: (data: any) => any = (data) => {
     console.log(data);
     emailSignUp(data);
